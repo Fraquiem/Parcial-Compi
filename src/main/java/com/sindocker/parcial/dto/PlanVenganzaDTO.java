@@ -8,9 +8,10 @@ import java.time.LocalDate;
 
 public record PlanVenganzaDTO(
         @NotBlank
-        String titulo,
+        Long hptas_id,
         @NotBlank
-        Hptas hptas,
+        String titulo,
+        String descripcion,
         @NotBlank
         Boolean esEjecutado,
         @NotBlank

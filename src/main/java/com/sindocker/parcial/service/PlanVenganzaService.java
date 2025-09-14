@@ -1,6 +1,7 @@
 package com.sindocker.parcial.service;
 
 import com.sindocker.parcial.dao.IPlanVenganzaDAO;
+import com.sindocker.parcial.dao.IHptasDAO;
 import com.sindocker.parcial.dto.PlanVenganzaDTO;
 import com.sindocker.parcial.model.Hptas;
 import com.sindocker.parcial.model.PlanVenganza;
@@ -14,11 +15,15 @@ public class PlanVenganzaService implements IPlanVenganzaService{
     @Autowired
     private IPlanVenganzaDAO planVenganzaDAO;
 
+    @Autowired
+    private IHptasDAO hptasDAO;
+
     @Override
     public List<PlanVenganzaDTO> getPlanVenganza() {
         return this.planVenganzaDAO.findAll().stream().map(pv->new PlanVenganzaDTO(
+                pv.getHpta().getId(),
                 pv.getTitulo(),
-                pv.getHpta(),
+                pv.getDescripcion(),
                 pv.getEsEjecutado(),
                 pv.getDiaPlaneado(),
                 pv.getNiveldeExito()
@@ -38,7 +43,10 @@ public class PlanVenganzaService implements IPlanVenganzaService{
     @Override
     public void save(PlanVenganzaDTO planVenganza) {
         PlanVenganza planVenganzaEntity = new PlanVenganza();
-        Hptas hptasEntity = planVenganzaEntity.getHpta();
+        Hptas hptasEntity = this.hptasDAO.findHptasById(planVenganza.hptas_id()).orElse(null);
+        if(hptasEntity==null){
+            throw new IllegalArgumentException("El hptas con id: "+planVenganza.hptas_id()+" no existe");
+        }
         planVenganzaEntity.setHpta(hptasEntity);
         planVenganzaEntity.setEsEjecutado(planVenganza.esEjecutado());
         planVenganzaEntity.setDiaPlaneado(planVenganza.diaPlaneado());

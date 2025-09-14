@@ -1,4 +1,7 @@
 package com.sindocker.parcial.dao;
 
-public interface IMediaDAO {
+import com.sindocker.parcial.model.Media;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IMediaDAO extends JpaRepository<Media, Long> {
 }

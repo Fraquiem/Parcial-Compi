@@ -1,6 +1,5 @@
 package com.sindocker.parcial.model;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,10 +12,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "media")
 public class Media {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable=false)
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="planvenganza_id", nullable=false)
     private PlanVenganza planVenganza;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

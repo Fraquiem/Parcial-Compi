@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record MediaDTO(
         @NotBlank
-        PlanVenganza planVenganza,
+        Long planvenganza_id,
         @NotBlank
         MediaType tipo,
         @NotBlank

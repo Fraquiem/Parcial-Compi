@@ -17,7 +17,8 @@ public class CliqueService implements ICliqueService{
     @Override
     public List<CliqueDTO> getCliques() {
         return this.cliqueDAO.findAll().stream().map(clique->new CliqueDTO(
-                clique.getNombre())).toList();
+                clique.getNombre(),
+                clique.getDescripcion())).toList();
     }
 
     @Override
@@ -34,6 +35,7 @@ public class CliqueService implements ICliqueService{
     public void save(CliqueDTO cliqueDTO) {
         Clique cliqueEntity = new Clique();
         cliqueEntity.setNombre(cliqueDTO.nombre());
+        cliqueEntity.setDescripcion(cliqueDTO.descripcion());
         this.cliqueDAO.save(cliqueEntity);
     }
 }

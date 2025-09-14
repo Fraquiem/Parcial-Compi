@@ -15,14 +15,17 @@ import java.util.List;
 public class HptasService implements IHptasService{
     @Autowired
     private IHptasDAO hptasDAO;
+    @Autowired
     private ICliqueDAO cliqueDAO;
     @Override
     public List<HptasDTO> getHptas() {
         return this.hptasDAO.findAll().stream().map(hptas -> new HptasDTO(
                 hptas.getClique().getId(),
                 hptas.getNombre(),
+                hptas.getApodo(),
                 hptas.getNivelCanson(),
-                hptas.getRol()))
+                hptas.getRol(),
+                hptas.getRazonDeBullying()))
                 .toList();
     }
 
@@ -32,7 +35,7 @@ public class HptasService implements IHptasService{
     }
 
     @Override
-    public void save(HptasDTO hptasDTO) {
+    public void save(@RequestBody HptasDTO hptasDTO) {
         Hptas hptasEntity = new Hptas();
         Clique cliqueEntity = this.cliqueDAO.findById(hptasDTO.clique_id()).orElse(null);
         if(cliqueEntity==null){
@@ -40,8 +43,10 @@ public class HptasService implements IHptasService{
         }
         hptasEntity.setClique(cliqueEntity);
         hptasEntity.setNombre(hptasDTO.nombre());
+        hptasEntity.setApodo(hptasDTO.apodo());
         hptasEntity.setNivelCanson(hptasDTO.nivelCanson());
         hptasEntity.setRol(hptasDTO.rol());
+        hptasEntity.setRazonDeBullying(hptasDTO.razonDeBullying());
         this.hptasDAO.save(hptasEntity);
     }
 

@@ -2,7 +2,7 @@ package com.sindocker.parcial.controller;
 
 import com.sindocker.parcial.dto.PlanVenganzaDTO;
 import com.sindocker.parcial.model.PlanVenganza;
-import com.sindocker.parcial.service.PlanVenganzaService;
+import com.sindocker.parcial.service.IPlanVenganzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/planvenganza")
 public class PlanVenganzaController {
     @Autowired
-    private PlanVenganzaService planVenganzaService;
+    private IPlanVenganzaService planVenganzaService;
 
     @GetMapping("/")
     public List<PlanVenganzaDTO> getPlanVenganza(){

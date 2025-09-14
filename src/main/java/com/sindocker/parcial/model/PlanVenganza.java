@@ -14,13 +14,12 @@ import java.time.LocalDate;
 @Table(name = "planvenganza")
 public class PlanVenganza {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable=false)
     private String titulo;
     private String descripcion;
-    @Column(nullable=false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="hptas_id", nullable=false)
     private Hptas hpta;
     @Column(nullable=false)

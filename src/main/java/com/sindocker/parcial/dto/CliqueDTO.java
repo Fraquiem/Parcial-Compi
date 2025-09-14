@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record CliqueDTO(
         @NotBlank
-        String nombre
+        String nombre,
+        String descripcion
 ) {
 }
